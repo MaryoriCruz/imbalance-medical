@@ -24,7 +24,7 @@
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/TU-USUARIO/imbalance-medical.git
+git clone https://github.com/MaryoriCruz/imbalance-medical.git
 cd imbalance-medical
 ```
 
