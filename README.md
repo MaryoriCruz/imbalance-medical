@@ -1,184 +1,48 @@
-🏥 Imbalance Medical — Detección de Enfermedades Raras
-
-Proyecto educativo que demuestra cómo los datos desbalanceados afectan a los modelos de clasificación en contextos médicos.
-
-Simulación:
-
-95% enfermedad común
-
-5% enfermedad rara
-
-Comparación:
-
-Regresión Logística sin balanceo
-
-Regresión Logística con SMOTE
-
-🚀 Instalación Paso a Paso
-1️⃣ Clonar el repositorio
-git clone https://github.com/TU-USUARIO/imbalance-medical.git
-cd imbalance-medical
-
-2️⃣ Crear entorno virtual
-uv venv
-
-3️⃣ Instalar dependencias
-uv sync
-
-4️⃣ Ejecutar el proyecto
-uv run python main.py
-
-📊 ¿Qué demuestra este proyecto?
-
-Sin balanceo:
-
-Alta accuracy
-
-Recall bajo en la clase rara
-
-Con SMOTE:
-
-Mejor recall
-
-Mejor F1-score
-
-Modelo más útil clínicamente
-
-🧠 Conceptos cubiertos
-
-Datos desbalanceados
-
-Accuracy vs Recall
-
-Matriz de Confusión
-
-F1-Score
-
-SMOTE
-
-Clasificación binaria
-
-⚠️ Problema común en VS Code
-
-Si aparece:
-
-Import "sklearn" could not be resolved
-
-
-Solución:
-
-Ctrl + Shift + P
-
-Python: Select Interpreter
-
-Seleccionar .venv
-
-🎯 Objetivo Académico
-
-Mostrar que una alta accuracy no garantiza un modelo útil en problemas médicos donde detectar casos raros es crítico.
-
-🔥 Ahora sí…
-
-Cuando alguien clone el repo solo necesita:
-
-uv sync
-uv run python main.py
-
-
-Y funciona.
-
-Si quieres, el siguiente nivel sería:
-
-Agregar visualización gráfica
-
-Agregar comparación con class_weight
-
-Convertirlo en demo interactiva con Streamlit
-
-O dejarlo estilo paper reproducible
-
-¿Lo dejamos académico… o lo subimos a modo portafolio senior? 😏🚀
-
-no, empieza desde desde como lo clonas, luego lo que tienes que activar y luego el codigo y asi sucesivamente
-
-Perfecto.
-Vamos a armar un README ultra claro, paso a paso desde cero, como si tu compa nunca hubiera usado uv en su vida 😄🚀
-
-Te lo dejo listo para copiar y pegar en tu README.md.
-
 🏥 Imbalance Medical — Clasificación con Datos Desbalanceados
-
 Este proyecto demuestra cómo los datos desbalanceados afectan a los modelos de Machine Learning en un contexto médico.
-
 Simulamos:
 
 95% pacientes con enfermedad común
-
 5% pacientes con enfermedad rara
 
 Y comparamos:
 
 Regresión Logística sin balanceo
-
 Regresión Logística con SMOTE
+
 
 🚀 PASO A PASO DESDE CERO
 1️⃣ Clonar el repositorio
-
-Abrir terminal y ejecutar:
-
-git clone https://github.com/TU-USUARIO/imbalance-medical.git
-
-
+bashgit clone https://github.com/TU-USUARIO/imbalance-medical.git
 Entrar en la carpeta:
-
-cd imbalance-medical
+bashcd imbalance-medical
 
 2️⃣ Crear el entorno virtual con uv
-
 Si no tienes uv:
-
-pip install uv
-
-
+bashpip install uv
 Crear entorno virtual:
-
-uv venv
-
-
-Esto generará:
-
-.venv/
+bashuv venv
+Esto generará la carpeta .venv/
 
 3️⃣ Activar el entorno virtual
 Windows PowerShell:
-.\.venv\Scripts\Activate.ps1
-
+powershell.\.venv\Scripts\Activate.ps1
 Git Bash:
-source .venv/Scripts/activate
-
+bashsource .venv/Scripts/activate
 
 Si todo está correcto, verás (.venv) al inicio de la línea.
 
+
 4️⃣ Instalar dependencias
-
-Ejecutar:
-
-uv sync
-
-
+bashuv sync
 Esto instalará automáticamente:
 
 numpy
-
 scikit-learn
-
 imbalanced-learn
 
-5️⃣ Estructura del Proyecto
 
-El proyecto debe verse así:
-
+5️⃣ Estructura del proyecto
 imbalance-medical/
 │
 ├── main.py
@@ -189,10 +53,7 @@ imbalance-medical/
 
 📦 Código del Proyecto
 main.py
-
-Crear un archivo llamado main.py y pegar lo siguiente:
-
-# ==========================================
+python# ==========================================
 # PROYECTO: Datos Desbalanceados en Medicina
 # ==========================================
 
@@ -266,10 +127,7 @@ print("\nReporte de Clasificación:")
 print(classification_report(y_test, y_pred_smote))
 
 pyproject.toml
-
-Asegúrate de que contenga:
-
-[project]
+toml[project]
 name = "imbalance-medical"
 version = "0.1.0"
 description = "Imbalanced medical classification demo using Logistic Regression and SMOTE"
@@ -282,35 +140,35 @@ dependencies = [
 ]
 
 ▶️ Ejecutar el Proyecto
-
 Con el entorno activado:
-
-python main.py
-
-
+bashpython main.py
 O sin activarlo:
-
-uv run python main.py
+bashuv run python main.py
 
 📊 ¿Qué observarás?
-Sin SMOTE:
+Sin SMOTECon SMOTEAccuracyAltaLigeramente menorRecall (enf. rara)Bajo ❌Alto ✅F1-Score (enf. rara)Bajo ❌Alto ✅Utilidad clínicaPobreBuena
 
-Alta accuracy
+⚠️ Problema común en VS Code
+Si aparece este error:
+Import "sklearn" could not be resolved
+Solución:
 
-Bajo recall en enfermedad rara
+Ctrl + Shift + P
+Buscar Python: Select Interpreter
+Seleccionar .venv
 
-Con SMOTE:
-
-Mejor recall
-
-Mejor F1-score
-
-Mejor detección de la clase minoritaria
 
 🧠 ¿Qué demuestra esto?
-
 En problemas médicos:
 
 Una accuracy alta NO significa que el modelo sea útil.
-
 Si no detectas la enfermedad rara, el modelo no sirve clínicamente.
+
+Conceptos cubiertos:
+
+Datos desbalanceados
+Accuracy vs Recall
+Matriz de Confusión
+F1-Score
+SMOTE
+Clasificación binaria
