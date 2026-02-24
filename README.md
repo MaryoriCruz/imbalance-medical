@@ -1,63 +1,99 @@
-🏥 Imbalance Medical — Clasificación con Datos Desbalanceados
-Este proyecto demuestra cómo los datos desbalanceados afectan a los modelos de Machine Learning en un contexto médico.
-Simulamos:
+# 🏥 Imbalance Medical
+### Clasificación con Datos Desbalanceados en Medicina
 
-95% pacientes con enfermedad común
-5% pacientes con enfermedad rara
+![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3+-orange?style=for-the-badge&logo=scikit-learn)
+![imbalanced-learn](https://img.shields.io/badge/imbalanced--learn-0.11+-green?style=for-the-badge)
+![uv](https://img.shields.io/badge/uv-package%20manager-purple?style=for-the-badge)
 
-Y comparamos:
+> Proyecto educativo que demuestra cómo los **datos desbalanceados** afectan a los modelos de clasificación en contextos médicos, comparando un modelo sin balanceo vs uno con **SMOTE**.
 
-Regresión Logística sin balanceo
-Regresión Logística con SMOTE
+---
 
+## 🔬 ¿Qué simula este proyecto?
 
-🚀 PASO A PASO DESDE CERO
-1️⃣ Clonar el repositorio
-bashgit clone https://github.com/TU-USUARIO/imbalance-medical.git
-Entrar en la carpeta:
-bashcd imbalance-medical
+| Clase | Descripción | Proporción |
+|-------|-------------|------------|
+| `0` | Enfermedad común | 95% |
+| `1` | Enfermedad rara | 5% |
 
-2️⃣ Crear el entorno virtual con uv
-Si no tienes uv:
-bashpip install uv
-Crear entorno virtual:
-bashuv venv
-Esto generará la carpeta .venv/
+---
 
-3️⃣ Activar el entorno virtual
-Windows PowerShell:
-powershell.\.venv\Scripts\Activate.ps1
-Git Bash:
-bashsource .venv/Scripts/activate
+## 🚀 Instalación y Ejecución Paso a Paso
 
-Si todo está correcto, verás (.venv) al inicio de la línea.
+### 1. Clonar el repositorio
 
+```bash
+git clone https://github.com/TU-USUARIO/imbalance-medical.git
+cd imbalance-medical
+```
 
-4️⃣ Instalar dependencias
-bashuv sync
-Esto instalará automáticamente:
+---
 
-numpy
-scikit-learn
-imbalanced-learn
+### 2. Crear el entorno virtual con `uv`
 
+> Si no tienes `uv` instalado:
 
-5️⃣ Estructura del proyecto
+```bash
+pip install uv
+```
+
+> Crear el entorno virtual:
+
+```bash
+uv venv
+```
+
+---
+
+### 3. Activar el entorno virtual
+
+**Windows (PowerShell):**
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+**Git Bash / Mac / Linux:**
+```bash
+source .venv/Scripts/activate
+```
+
+> ✅ Si está activo verás `(.venv)` al inicio de la terminal.
+
+---
+
+### 4. Instalar dependencias
+
+```bash
+uv sync
+```
+
+---
+
+### 5. Ejecutar el proyecto
+
+```bash
+uv run python main.py
+```
+
+---
+
+## 📁 Estructura del Proyecto
+
+```
 imbalance-medical/
 │
-├── main.py
-├── pyproject.toml
-├── uv.lock
-├── README.md
-└── .venv/
+├── main.py          ← código principal
+├── pyproject.toml   ← dependencias del proyecto
+├── uv.lock          ← versiones exactas instaladas
+└── README.md
+```
 
-📦 Código del Proyecto
-main.py
-python# ==========================================
-# PROYECTO: Datos Desbalanceados en Medicina
-# ==========================================
+---
 
-# 1️⃣ Importamos librerías
+## 🧠 Código — `main.py`
+
+```python
 import numpy as np
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
@@ -65,69 +101,63 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix
 from imblearn.over_sampling import SMOTE
 
-
-# 2️⃣ Creamos dataset desbalanceado
+# ── Crear dataset desbalanceado ───────────────────────────────────
 X, y = make_classification(
-    n_samples=1000,        # Total pacientes
-    n_features=2,          # Biomarcadores
+    n_samples=1000,
+    n_features=2,
     n_redundant=0,
     n_clusters_per_class=1,
-    weights=[0.95],        # 95% enfermedad común
+    weights=[0.95],       # 95% enfermedad común, 5% rara
     flip_y=0,
     random_state=42
 )
 
 print("Distribución original:")
-print("Clase 0 (común):", sum(y == 0))
-print("Clase 1 (rara):", sum(y == 1))
+print(f"  Clase 0 (común): {sum(y == 0)}")
+print(f"  Clase 1 (rara):  {sum(y == 1)}")
 
-
-# 3️⃣ Dividir datos
+# ── Dividir en entrenamiento y prueba ────────────────────────────
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y,
-    test_size=0.3,
-    random_state=42
+    X, y, test_size=0.3, random_state=42
 )
 
-
-# 4️⃣ Modelo sin balanceo
+# ── Modelo SIN balanceo ──────────────────────────────────────────
 model = LogisticRegression()
 model.fit(X_train, y_train)
-
 y_pred = model.predict(X_test)
 
-print("\n===== SIN BALANCEO =====")
+print("\n========== SIN BALANCEO ==========")
 print("Matriz de Confusión:")
 print(confusion_matrix(y_test, y_pred))
-
 print("\nReporte de Clasificación:")
 print(classification_report(y_test, y_pred))
 
-
-# 5️⃣ Aplicar SMOTE
+# ── Aplicar SMOTE ────────────────────────────────────────────────
 smote = SMOTE(random_state=42)
 X_train_res, y_train_res = smote.fit_resample(X_train, y_train)
 
-print("\nDistribución después de SMOTE:")
-print("Clase 0:", sum(y_train_res == 0))
-print("Clase 1:", sum(y_train_res == 1))
+print("Distribución después de SMOTE:")
+print(f"  Clase 0: {sum(y_train_res == 0)}")
+print(f"  Clase 1: {sum(y_train_res == 1)}")
 
-
-# 6️⃣ Modelo con SMOTE
+# ── Modelo CON SMOTE ─────────────────────────────────────────────
 model_smote = LogisticRegression()
 model_smote.fit(X_train_res, y_train_res)
-
 y_pred_smote = model_smote.predict(X_test)
 
-print("\n===== CON SMOTE =====")
+print("\n========== CON SMOTE ==========")
 print("Matriz de Confusión:")
 print(confusion_matrix(y_test, y_pred_smote))
-
 print("\nReporte de Clasificación:")
 print(classification_report(y_test, y_pred_smote))
+```
 
-pyproject.toml
-toml[project]
+---
+
+## ⚙️ Configuración — `pyproject.toml`
+
+```toml
+[project]
 name = "imbalance-medical"
 version = "0.1.0"
 description = "Imbalanced medical classification demo using Logistic Regression and SMOTE"
@@ -138,37 +168,44 @@ dependencies = [
     "scikit-learn",
     "imbalanced-learn"
 ]
+```
 
-▶️ Ejecutar el Proyecto
-Con el entorno activado:
-bashpython main.py
-O sin activarlo:
-bashuv run python main.py
+---
 
-📊 ¿Qué observarás?
-Sin SMOTECon SMOTEAccuracyAltaLigeramente menorRecall (enf. rara)Bajo ❌Alto ✅F1-Score (enf. rara)Bajo ❌Alto ✅Utilidad clínicaPobreBuena
+## 📊 ¿Qué resultados verás?
 
-⚠️ Problema común en VS Code
-Si aparece este error:
+| Métrica | Sin SMOTE | Con SMOTE |
+|---------|-----------|-----------|
+| Accuracy | Alta ✅ | Ligeramente menor |
+| Recall clase rara | Bajo ❌ | Alto ✅ |
+| F1-Score clase rara | Bajo ❌ | Alto ✅ |
+| Utilidad clínica | ❌ Pobre | ✅ Buena |
+
+---
+
+## ⚠️ Problema común en VS Code
+
+Si aparece el error:
+```
 Import "sklearn" could not be resolved
-Solución:
+```
 
-Ctrl + Shift + P
-Buscar Python: Select Interpreter
-Seleccionar .venv
+**Solución:**
+1. Presiona `Ctrl + Shift + P`
+2. Escribe **Python: Select Interpreter**
+3. Selecciona el intérprete de `.venv`
 
+---
 
-🧠 ¿Qué demuestra esto?
-En problemas médicos:
+## 💡 Conclusión
 
-Una accuracy alta NO significa que el modelo sea útil.
-Si no detectas la enfermedad rara, el modelo no sirve clínicamente.
+> **Una accuracy alta NO significa que el modelo sea útil.**
+> En medicina, si no detectas la enfermedad rara, el modelo falla clínicamente sin importar su porcentaje de aciertos.
 
-Conceptos cubiertos:
-
-Datos desbalanceados
-Accuracy vs Recall
-Matriz de Confusión
-F1-Score
-SMOTE
-Clasificación binaria
+### Conceptos cubiertos
+- Datos desbalanceados
+- Accuracy vs Recall
+- Matriz de Confusión
+- F1-Score
+- SMOTE
+- Clasificación binaria
